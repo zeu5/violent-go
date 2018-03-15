@@ -6,6 +6,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 )
 
@@ -60,13 +61,23 @@ func Attack(attackInterface DictionaryAttack) string {
 	return answer
 }
 
-// UserDictionaryAttack interface implmentation for running dictionary attack on user password
-type UserDictionaryAttack struct{}
+// UserDictAttack interface implmentation for running dictionary attack on user password
+type UserDictAttack struct{}
 
-func (userAttack *UserDictionaryAttack) attack(word string) bool {
-	return true
+func (userAttack *UserDictAttack) attack(word string) bool {
+	if word == "Zyzzogeton" {
+		return true
+	}
+	return false
+}
+
+// NewUserDictAttack constructor for the interface
+func NewUserDictAttack() *UserDictAttack {
+	return &UserDictAttack{}
 }
 
 func main() {
-
+	userDictAttack := NewUserDictAttack()
+	password := Attack(userDictAttack)
+	fmt.Println("Found password: " + password)
 }
