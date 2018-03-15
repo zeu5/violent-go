@@ -98,8 +98,8 @@ func main() {
 	check(err)
 
 	f, err := os.Open(args["file"])
-	defer f.Close()
 	check(err)
+	defer f.Close()
 	fmt.Printf("Reading from file: %s\n", args["file"])
 
 	banners := readLines(f)
