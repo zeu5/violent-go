@@ -11,7 +11,7 @@ import (
 )
 
 // DictionaryAttack Interface implementing the dictionary attack vector.
-type DictionaryAttack interface {
+type Attacker interface {
 	attack(word string) bool
 }
 
@@ -31,8 +31,8 @@ func readLines(f *os.File) []string {
 	return lines
 }
 
-// Attack function to call with an implementation of DictionaryAttack
-func Attack(attackInterface DictionaryAttack) string {
+// Attack function to call with an implementation of Attacker
+func Attack(attackInterface Attacker) string {
 	dictFile, err := os.Open("/usr/share/dict/words")
 	check(err)
 	defer dictFile.Close()
@@ -61,23 +61,26 @@ func Attack(attackInterface DictionaryAttack) string {
 	return answer
 }
 
-// UserDictAttack interface implmentation for running dictionary attack on user password
-type UserDictAttack struct{}
+// UserAttacker interface implmentation for running dictionary attack on user password
+type UserAttacker struct{}
 
-func (userAttack *UserDictAttack) attack(word string) bool {
+func (userAttack *UserAttacker) attack(word string) bool {
 	if word == "Zyzzogeton" {
 		return true
 	}
 	return false
 }
 
-// NewUserDictAttack constructor for the interface
-func NewUserDictAttack() *UserDictAttack {
-	return &UserDictAttack{}
+// NewUserAttacker constructor for the interface
+func NewUserAttacker() *UserAttacker {
+	return &UserAttacker{}
 }
 
 func main() {
-	userDictAttack := NewUserDictAttack()
-	password := Attack(userDictAttack)
-	fmt.Println("Found password: " + password)
+	userAttacker := NewUserAttacker()
+	if password := Attack(userAttacker); password != "" {
+		fmt.Println("Found password: " + password)
+	} else {
+		fmt.Println("No password found")
+	}
 }

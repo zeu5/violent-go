@@ -25,12 +25,14 @@ func scan(ips []string, banners []string) {
 	fmt.Println("Scanning")
 	for _, ip := range ips {
 		for _, port := range ports {
-			banner, err := getBanner(ip, port)
-			if err == nil {
-				if ok := checkBanners(banner, banners); ok {
-					fmt.Println("Found server : " + ip + " with banner : " + banner)
+			go func(ip string, port int) {
+				banner, err := getBanner(ip, port)
+				if err == nil {
+					if ok := checkBanners(banner, banners); ok {
+						fmt.Println("Found server : " + ip + " with banner : " + banner)
+					}
 				}
-			}
+			}(ip, port)
 		}
 	}
 	fmt.Println("Done!")
