@@ -28,7 +28,7 @@ func parseArgs() (string, string, []string) {
 	flag.StringVar(&passwd, "p", "", "Passwords file")
 
 	if host == "" || user == "" || passwd == "" {
-		panic("Usage scanner -h <host> -u <user> -p <passwd_file>")
+		panic("Usage sshbrute -h <host> -u <user> -p <passwd_file>")
 	}
 
 	f, err := os.Open(passwd)
