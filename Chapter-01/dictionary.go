@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-// DictionaryAttack Interface implementing the dictionary attack vector.
+// Attacker Interface implementing the dictionary attack vector.
 type Attacker interface {
 	attack(word string) bool
 }
