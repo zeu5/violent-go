@@ -16,3 +16,7 @@
 
 # IDE related
 .vscode
+debug
+
+# MacOS related
+.DS_Store

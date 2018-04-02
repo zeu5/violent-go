@@ -85,7 +85,7 @@ func parseArgs() (string, string, string) {
 
 func listdir(dir string) []string {
 	var filenames []string
-	files, err := ioutil.ReadDir(dir)
+	files, err := ioutil.ReadDir(path.Clean(dir))
 	if err != nil {
 		fmt.Println("Could not list directory")
 	}
